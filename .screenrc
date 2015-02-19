@@ -1,0 +1,25 @@
+#shell /bin/zsh
+
+# escape not changed
+# New screen -> set current directory same as previous one
+# set name to process, and if process=vim, set name to filename
+vbell off #show message instead of beep sound
+# caption always '%{=r dg}%H[%n]: %c %{-}%`%-w%{=b bw}%n %t%{-}%+w'
+hardstatus alwayslastline '%{= .g}%H%{-} %L=%-w%45L>%{= g.}%n %t%{-}%+w'
+# http://qiita.com/t_cyrill/items/54ffb13918cb421a961b
+# http://www.ayu.ics.keio.ac.jp/~mukai/tips/screen.html
+# caption always '%?%F%{= gW}%:%{= Kk}%?%2n%f%07=%t%='
+# caption always '%{= wb} %-w%{=bu dr}%n %t%{-}%+w %= %{=b wk} [%l] %{=b wb}%y/%m/%d(%D) %{=b wm}%c'
+autodetach on
+defencoding utf-8
+encoding utf-8 utf-8
+
+bell_msg '^G'
+defscrollback 10000
+startup_message off
+
+bind n screen
+bind w kill
+bind j prev
+bind k next
+bind l windowlist
