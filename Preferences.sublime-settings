@@ -1,0 +1,30 @@
+{
+    "color_scheme": "Packages/Tomorrow Color Schemes/Tomorrow-Night-Eighties.tmTheme",
+    "dictionary": "Packages/Language - English/en_US.dic",
+    "font_face": "Source Code Pro",
+    "font_options":
+    [
+        "subpixel_antialias",
+        "direct_write"
+    ],
+    "font_size": 13,
+    "highlight_line": true,
+    "ignored_packages":
+    [
+        "Vintage",
+        "C++"
+    ],
+    "indent_guide_options":
+    [
+        "draw_active"
+    ],
+    "show_encoding": true,
+    "show_full_path": true,
+    "show_line_endings": true,
+    "soda_classic_tabs": true,
+    "soda_folder_icons": true,
+    "theme": "Soda Dark 3.sublime-theme",
+    "translate_tabs_to_spaces": true,
+    "trim_automatic_white_space": false,
+    "trim_trailing_white_space_on_save": true
+}
