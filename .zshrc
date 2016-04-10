@@ -49,6 +49,8 @@ setopt ignoreeof
 ## バックグラウンドジョブが終了したらすぐに知らせる。
 setopt no_tify
 
+## enable expansion like {a..x}
+setopt brace_ccl
 
 
 # ディレクトリ名を入力するだけでcdできるようにする
@@ -58,6 +60,8 @@ setopt auto_pushd
 # 重複したディレクトリを追加しない
 setopt pushd_ignore_dups
 
+# Avoid "nomatch"
+setopt nonomatch
 
 
 
@@ -156,7 +160,7 @@ setopt prompt_subst
 alias grep="grep --color -n -I --exclude='*.svn-*' --exclude='entries' --exclude='*/cache/*'"
 
 # ls
-alias ls="ls --color=auto --show-control-chars -F" # color for darwin
+alias ls="ls --color=auto --show-control-chars --classify --human-readable" # color for darwin
 
 # grep
 alias grep="grep --color=auto" # color for darwin
@@ -166,6 +170,7 @@ alias tree="tree -NC" # N: 文字化け対策, C:色をつける
 
 # tar
 alias untargz="tar xvf"
+alias -s tar.gz=untargz
 function targz() {
     target=${1%\/}
     tar czvf $target.tar.gz $target
@@ -181,6 +186,16 @@ function cd() {
     fi
 }
 # alias cd="builtin cd \"$@\" && ls;"
+
+function mylatexmk() {
+    sed -e "s/、/，/g" -e "s/。/．/g" -i *.tex
+    latexmk $1
+}
+
+alias -s tex=mylatexmk
+alias -s py=python
+alias -s txt="head -20"
+
 
 alias cyg-fast="cyg-fast -m http://ftp.jaist.ac.jp/pub/cygwin/"
 
@@ -208,7 +223,8 @@ stty stop undef
 # exec 2>>( while read line; do echo -e "\e[33m$line\e[0m"; done )
 # alias rederror_off="exec 2> /dev/tty"
 
-PROMPT="%(?.%{${fg[green]}%}(*'_'.%{${fg[red]}%}(;>o<)) $  %{${reset_color}%}"
+PROMPT="%(?.%{${fg[green]}%}(*'_'.%{${fg[red]}%}(;>o<)) %#  %{${reset_color}%}"
 RPROMPT="%{${fg[blue]}%}<%~>%{${reset_color}%}"
-PROMPT2="%(?.%{${fg[green]}%}(*'_'.%{${fg[red]}%}(;>o<)) $> %{${reset_color}%}"
+RPROMPT="%{${fg[blue]}%}[%. %n@%m]%{${reset_color}%}"
+PROMPT2="%(?.%{${fg[green]}%}(*'_'.%{${fg[red]}%}(;>o<)) %#> %{${reset_color}%}"
 SPROMPT="%{${fg[green]}%}(*'~') Did you mean '%{${reset_color}%}%r%{${fg[green]}%}'? [%UY%ues/%UN%uo/%UA%ubort/%UE%udit]$ %{${reset_color}%}"

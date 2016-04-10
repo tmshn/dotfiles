@@ -1,0 +1,6 @@
+[user]
+	name = Shinichi TAMURA
+	email =
+[core]
+	autocrlf = true
+    excludesfile = gitignore_global.txt

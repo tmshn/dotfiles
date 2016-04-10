@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-$latex      = 'platex %O -synctex=1 -guess-input-enc %S';
+$latex      = 'platex %O -synctex=1 -guess-input-enc %S -halt-on-error';
 $bibtex     = 'pbibtex %O %B';
 $dvipdf     = 'dvipdfmx %O -o %D %S';
 $makeindex  = 'mendex %O -o %D -U %S';
