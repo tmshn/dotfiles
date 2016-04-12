@@ -223,8 +223,16 @@ stty stop undef
 # exec 2>>( while read line; do echo -e "\e[33m$line\e[0m"; done )
 # alias rederror_off="exec 2> /dev/tty"
 
-PROMPT="%(?.%{${fg[green]}%}(*'_'.%{${fg[red]}%}(;>o<)) %#  %{${reset_color}%}"
-RPROMPT="%{${fg[blue]}%}<%~>%{${reset_color}%}"
 RPROMPT="%{${fg[blue]}%}[%. %n@%m]%{${reset_color}%}"
-PROMPT2="%(?.%{${fg[green]}%}(*'_'.%{${fg[red]}%}(;>o<)) %#> %{${reset_color}%}"
-SPROMPT="%{${fg[green]}%}(*'~') Did you mean '%{${reset_color}%}%r%{${fg[green]}%}'? [%UY%ues/%UN%uo/%UA%ubort/%UE%udit]$ %{${reset_color}%}"
+case ${UID} in
+0)
+    ;;
+    PROMPT="%(?.%{${fg_bold[green]}%}( '_'.%{${fg_bold[red]}%}(;>o<)) #  %{${reset_color}%}"
+    PROMPT2="%(?.%{${fg_bold[green]}%}( '_'.%{${fg_bold[red]}%}(;>o<)) #> %{${reset_color}%}"
+    SPROMPT="%{${fg_bold[green]}%}( '~') Did you mean '%{${reset_color}%}%r%{${fg[green]}%}'? [%UY%ues/%UN%uo/%UA%ubort/%UE%udit]$ %{${reset_color}%}"
+*)
+    PROMPT="%(?.%{${fg[green]}%}(*'_'.%{${fg[red]}%}(;>o<)) $  %{${reset_color}%}"
+    PROMPT2="%(?.%{${fg[green]}%}(*'_'.%{${fg[red]}%}(;>o<)) $> %{${reset_color}%}"
+    SPROMPT="%{${fg[green]}%}(*'~') Did you mean '%{${reset_color}%}%r%{${fg[green]}%}'? [%UY%ues/%UN%uo/%UA%ubort/%UE%udit]$ %{${reset_color}%}"
+    ;;
+esac
