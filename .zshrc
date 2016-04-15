@@ -160,7 +160,14 @@ setopt prompt_subst
 alias grep="grep --color -n -I --exclude='*.svn-*' --exclude='entries' --exclude='*/cache/*'"
 
 # ls
-alias ls="ls --color=auto --show-control-chars --classify --human-readable" # color for darwin
+case ${OSTYPE} in
+    darwin*)
+        alias ls="ls -bFGh" # color for darwin
+        ;;
+    *)
+        alias ls="ls --color=auto --show-control-chars --classify --human-readable"
+        ;;
+esac
 
 # grep
 alias grep="grep --color=auto" # color for darwin
@@ -196,6 +203,10 @@ alias -s tex=mylatexmk
 alias -s py=python
 alias -s txt="head -20"
 
+function bak() {
+    target=$1
+    cp $1 $1.$(date "+%Y%m%d%H%M")
+}
 
 alias cyg-fast="cyg-fast -m http://ftp.jaist.ac.jp/pub/cygwin/"
 
@@ -223,13 +234,13 @@ stty stop undef
 # exec 2>>( while read line; do echo -e "\e[33m$line\e[0m"; done )
 # alias rederror_off="exec 2> /dev/tty"
 
-RPROMPT="%{${fg[blue]}%}[%. %n@%m]%{${reset_color}%}"
+RPROMPT="%{${fg[blue]}%}[%n@%m %.]%{${reset_color}%}"
 case ${UID} in
 0)
-    ;;
     PROMPT="%(?.%{${fg_bold[green]}%}( '_'.%{${fg_bold[red]}%}(;>o<)) #  %{${reset_color}%}"
     PROMPT2="%(?.%{${fg_bold[green]}%}( '_'.%{${fg_bold[red]}%}(;>o<)) #> %{${reset_color}%}"
     SPROMPT="%{${fg_bold[green]}%}( '~') Did you mean '%{${reset_color}%}%r%{${fg[green]}%}'? [%UY%ues/%UN%uo/%UA%ubort/%UE%udit]$ %{${reset_color}%}"
+    ;;
 *)
     PROMPT="%(?.%{${fg[green]}%}(*'_'.%{${fg[red]}%}(;>o<)) $  %{${reset_color}%}"
     PROMPT2="%(?.%{${fg[green]}%}(*'_'.%{${fg[red]}%}(;>o<)) $> %{${reset_color}%}"
