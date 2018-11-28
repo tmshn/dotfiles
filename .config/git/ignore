@@ -1,0 +1,6 @@
+*~
+.DS_Store
+.idea/*
+.python-version
+note.md
+gitignore/*

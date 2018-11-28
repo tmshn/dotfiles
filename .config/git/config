@@ -1,0 +1,28 @@
+[user]
+	name = tmshn
+[color]
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red
+	oldHighlight = red bold reverse
+	newNormal = green
+	newHighlight = green bold reverse
+[diff]
+	compactionHeuristic = true
+[color "diff"]
+	meta = magenta
+	frag = magenta bold
+	commit = magenta bold
+	old = red
+	new = green
+	whitespace = red reverse
+[diff-so-fancy]
+	markEmptyLines = false
+	stripLeadingSymbols = false
+[pager]
+	diff = diff-so-fancy | less --tabs=4 -RFXmi
+[alias]
+	graph = foresta --style 10 -n 10
+    update-commit = ! git commit --amend --no-edit --date="$(date '+%Y-%m-%dT%T%z')"
+	temp = commit -anm 'wip [skip ci]'
+	summary = diff --compact-summary remotes/origin/HEAD
