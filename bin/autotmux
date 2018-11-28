@@ -12,5 +12,10 @@ fi
 if tmux has-session 2> /dev/null; then
     tmux attach
 else
-    tmux new
+    readonly config="${XDG_CONFIG_HOME:-~/.config}/tmux/tmux.conf"
+    if [ -e "$config" ]; then
+        tmux -f "$config" new
+    else
+        tmux new
+    fi
 fi
