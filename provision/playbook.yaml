@@ -78,6 +78,8 @@
         # AppleFirstWeekday:                    {val: <dict><key>gregorian</key><int>2</int></dict>, type: string} # Currently cannot set dict
         NSQuitAlwaysKeepsWindows:             {val: true, type: bool}
         com.apple.trackpad.forceClick:        {val: true, type: bool}
+        KeyRepeat:                            {val: 15, type: int}
+        InitialKeyRepeat:                     {val: 2, type: int}
     - name: install brews
       homebrew:
         name:
