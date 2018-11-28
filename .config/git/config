@@ -26,3 +26,7 @@
     update-commit = ! git commit --amend --no-edit --date="$(date '+%Y-%m-%dT%T%z')"
 	temp = commit -anm 'wip [skip ci]'
 	summary = diff --compact-summary remotes/origin/HEAD
+[ghq]
+	root = ~/src
+[ghq "https://ghe.misosiru.io/"]
+	vcs = git
