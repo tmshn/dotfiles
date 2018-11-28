@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if ! type tmux > /dev/null 2>&1; then
+    echo 'tmux is not available.' >&2
+    exit
+fi
+if [ -n "$TMUX" ]; then
+    echo 'already in tmux session.' >&2
+    exit
+fi
+
+if tmux has-session 2> /dev/null; then
+    tmux attach
+else
+    tmux new
+fi

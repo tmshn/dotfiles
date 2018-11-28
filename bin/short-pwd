@@ -1,0 +1,41 @@
+#!/bin/sh
+
+test -n "$DEBUG" && set -o xtrace
+
+mid_len=3
+mid_elip='~'
+last_len=7
+last_elip='~'
+while [ $# -gt 0 ]; do
+    if [ "${1:0:1}" = '-' ]; then
+        key=${1:1:1}
+        val="${1#-?}"
+        if [ -z "${val}" ]; then
+            shift
+            val="$1"
+        fi
+        case "$key" in
+            n ) mid_len="$val";;
+            e ) mid_elip="$val";;
+            N ) last_len="$val";;
+            E ) last_elip="$val";;
+            * ) echo "Unknown option ${key}" >&2 && exit 1;;
+        esac
+    else
+        dir="$1"
+    fi
+    shift
+done
+
+build_regex() {
+    local elip="${2?}"
+    local elip_len=${#elip}
+    local len=$(( ${1:?} - elip_len ))
+    local left_len=$(( (len + 1) / 2 ))
+    echo "s#([^/]{$left_len})[^/]{$(( elip_len + 1 )),}([^/]{$(( len - left_len ))}${3})#\1${elip}\2#g"
+}
+
+cd "${dir:-.}" && pwd | sed -E \
+    -e "s#${HOME:-$^}#~#" \
+    -e "$(build_regex "$mid_len" "$mid_elip" '/')" \
+    -e "$(build_regex "$last_len" "$last_elip" '$')"

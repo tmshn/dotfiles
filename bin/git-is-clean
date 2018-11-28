@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# A script to determine if the current git repository is clean and safe to delete
+
+check() {
+    local target=$(cat)
+    if [ -z "$target" ]; then
+        printf '[ \033[32mOK\033[0m ] ' >&2
+        echo "${@}" >&2
+    else
+        printf '[ \033[31mNG\033[0m ] ' >&2
+        echo "${@}" >&2
+        echo "$target" | sed 's/^/        /' >&2
+        return 1
+    fi
+}
+
+errors=0
+git status --porcelain                              | check uncommitted files   || errors=$(( $errors + 1 ))
+git status | grep 'Your branch is ahead '           | check unpushed commits    || errors=$(( $errors + 1 ))
+git ls-files --other --directory | grep -v DS_Store | check ignored files       || errors=$(( $errors + 1 ))
+git branch | grep -v '^* master$'                   | check non-master branches || errors=$(( $errors + 1 ))
+git stash list                                      | check stashes             || errors=$(( $errors + 1 ))
+
+echo ------------------------------------------------------ >&2
+if [ "$errors" -eq 0 ]; then
+    printf '\033[30;1;42m  OK  \033[0m This repository is clean and safe to delete\n' >&2
+else
+    printf '\033[30;1;41m  NG  \033[0m This repository is dirty \033[33m(with %d failures)\033[0m\n' $errors >&2
+    exit 1
+fi
