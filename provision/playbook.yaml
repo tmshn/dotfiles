@@ -1,0 +1,134 @@
+- hosts: localhost
+  connection: local
+  vars:
+    dock_tmpl: <dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/%s.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>
+  tasks:
+    - name: install casks
+      homebrew_cask:
+        name: "{{ item }}"
+      with_items:
+        - google-chrome
+        - google-japanese-ime
+        - docker
+        - iterm2
+        - visual-studio-code
+        - slack
+        - karabiner-elements
+        - google-cloud-sdk
+    # This runs every time, so comment out
+    # - name: pin icons to Dock
+    #   osx_defaults:
+    #     domain: com.apple.dock
+    #     key: persistent-apps
+    #     type: array
+    #     value:
+    #       - "{{ dock_tmpl | format('Google Chrome') }}"
+    #       - "{{ dock_tmpl | format('Slack') }}"
+    #       - "{{ dock_tmpl | format('Visual Studio Code') }}"
+    #   notify: restart Dock
+    - name: Dock settings
+      osx_defaults:
+        domain: com.apple.dock
+        key: "{{ item.key }}"
+        type: "{{ item.value.type }}"
+        value: "{{ item.value.val }}"
+      with_dict:
+        minimize-to-application:  {val: true, type: bool}
+        orientation:              {val: left, type: string}
+        tilesize:                 {val: 55, type: float}
+      notify: restart Dock
+    - name: Finder settings
+      osx_defaults:
+        domain: com.apple.finder
+        key: "{{ item.key }}"
+        type: "{{ item.value.type }}"
+        value: "{{ item.value.val }}"
+      with_dict:
+        FXPreferredViewStyle: {val: clmv, type: string} # Make column view as default
+      notify: restart Finder
+    - name: Menu bar clock settings
+      osx_defaults:
+        domain: com.apple.menuextra.clock
+        key: "{{ item.key }}"
+        type: "{{ item.value.type }}"
+        value: "{{ item.value.val }}"
+      with_dict:
+        DateFormat:           {val: 'M\u6708d\u65e5(EEE)  H:mm', type: string}
+        FlashDateSeparators:  {val: false, type: bool}
+        IsAnalog:             {val: false, type: bool}
+      notify: restart menu bar
+    - name: Menu bar battery settings
+      osx_defaults:
+        domain: com.apple.menuextra.battery
+        key: "{{ item.key }}"
+        type: "{{ item.value.type }}"
+        value: "{{ item.value.val }}"
+      with_dict:
+        ShowPercent: {val: 'YES', type: string}
+      notify: restart menu bar
+    - name: Global system settings
+      osx_defaults:
+        key: "{{ item.key }}"
+        type: "{{ item.value.type }}"
+        value: "{{ item.value.val }}"
+      with_dict:
+        AppleShowScrollBars:                  {val: Always, type: string}
+        AppleEnableSwipeNavigateWithScrolls:  {val: false, type: bool}
+        AppleScrollerPagingBehavior:          {val: 1, type: int}
+        # AppleFirstWeekday:                    {val: <dict><key>gregorian</key><int>2</int></dict>, type: string} # Currently cannot set dict
+        NSQuitAlwaysKeepsWindows:             {val: true, type: bool}
+        com.apple.trackpad.forceClick:        {val: true, type: bool}
+    - name: install brews
+      homebrew:
+        name:
+          - fish
+          - jq
+          - jid
+          - bat
+          - micro
+          - openssl
+          - rustup-init
+          - terraform
+          - tmux
+          - fzf
+          - diff-so-fancy
+          - ghq
+    - name: prepare dirs under home
+      file:
+        path: "~/{{ item }}"
+        state: directory
+      with_items:
+        - .config/fish
+        - src
+        - bin
+    - name: git-based installations
+      git:
+        repo: "https://github.com/{{ item.key }}"
+        dest: "{{ item.value }}"
+      with_dict:
+        riywo/anyenv: ~/.anyenv
+        tmux-plugins/tpm: ~/.tmux/plugins/tpm
+        tmshn/dotfiles: ~/src/github.com/tmshn/dotfiles # GHQ-style
+    - name: make fish shell valid
+      lineinfile:
+        dest: /etc/shells
+        line: /usr/local/bin/fish
+      become: true
+    - name: change login shell to fish
+      user:
+        name: tmshn
+        shell: /usr/local/bin/fish
+      become: true
+    - name: set XDG_CONFIG_HOME
+      copy:
+        dest: ~/.config/fish/config.fish
+        content: |
+          set -x XDG_CONFIG_HOME ~/src/github.com/tmshn/dotfiles/.config
+          set -x PATH ~/src/github.com/tmshn/dotfiles/bin $PATH
+  handlers:
+    - name: restart Dock
+      command: killall Dock
+    - name: restart Finder
+      command: killall Finder
+    - name: restart menu bar
+      command: killall SystemUIServer
