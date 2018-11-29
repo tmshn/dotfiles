@@ -1,5 +1,5 @@
-.config/fish/fishd.*
-.config/micro/buffers
-.config/git/enterprise.conf
+config/fish/fishd.*
+config/micro/buffers
+config/git/enterprise.conf
 
 provision/*.retry

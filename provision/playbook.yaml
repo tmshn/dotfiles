@@ -25,6 +25,7 @@
     #       - "{{ dock_tmpl | format('Google Chrome') }}"
     #       - "{{ dock_tmpl | format('Slack') }}"
     #       - "{{ dock_tmpl | format('Visual Studio Code') }}"
+    #       - "{{ dock_tmpl | format('iTerm') }}"
     #   notify: restart Dock
     - name: Dock settings
       osx_defaults:
@@ -78,8 +79,8 @@
         # AppleFirstWeekday:                    {val: <dict><key>gregorian</key><int>2</int></dict>, type: string} # Currently cannot set dict
         NSQuitAlwaysKeepsWindows:             {val: true, type: bool}
         com.apple.trackpad.forceClick:        {val: true, type: bool}
-        KeyRepeat:                            {val: 15, type: int}
-        InitialKeyRepeat:                     {val: 2, type: int}
+        KeyRepeat:                            {val: 2, type: int}
+        InitialKeyRepeat:                     {val: 15, type: int}
     - name: install brews
       homebrew:
         name:
@@ -100,7 +101,6 @@
         path: "~/{{ item }}"
         state: directory
       with_items:
-        - .config/fish
         - src
         - bin
     - name: git-based installations
@@ -110,7 +110,7 @@
       with_dict:
         riywo/anyenv: ~/.anyenv
         tmux-plugins/tpm: ~/.tmux/plugins/tpm
-        tmshn/dotfiles: ~/src/github.com/tmshn/dotfiles # GHQ-style
+        # tmshn/dotfiles: ~/src/github.com/tmshn/dotfiles # GHQ-style
     - name: make fish shell valid
       lineinfile:
         dest: /etc/shells
@@ -121,12 +121,6 @@
         name: tmshn
         shell: /usr/local/bin/fish
       become: true
-    - name: set XDG_CONFIG_HOME
-      copy:
-        dest: ~/.config/fish/config.fish
-        content: |
-          set -x XDG_CONFIG_HOME ~/src/github.com/tmshn/dotfiles/.config
-          set -x PATH ~/src/github.com/tmshn/dotfiles/bin $PATH
   handlers:
     - name: restart Dock
       command: killall Dock
