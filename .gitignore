@@ -1,4 +1,4 @@
-.config/fish/fishd.*
-.config/micro/buffers
+config/fish/fishd.*
+config/micro/buffers
 
 provision/*.retry

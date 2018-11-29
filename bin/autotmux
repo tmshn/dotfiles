@@ -2,20 +2,27 @@
 
 if ! type tmux > /dev/null 2>&1; then
     echo 'tmux is not available.' >&2
-    exit
+    exit 1
 fi
-if [ -n "$TMUX" ]; then
+
+if [ -n "${TMUX}" ]; then
     echo 'already in tmux session.' >&2
     exit
 fi
 
 if tmux has-session 2> /dev/null; then
     tmux attach
-else
-    readonly config="${XDG_CONFIG_HOME:-~/.config}/tmux/tmux.conf"
-    if [ -e "$config" ]; then
-        tmux -f "$config" new
-    else
-        tmux new
-    fi
+    exit
 fi
+
+readonly dotfiles="${HOME}/src/github.com/tmshn/dotfiles"
+export XDG_CONFIG_HOME="${dotfiles}/config"
+export PATH="${dotfiles}/bin:${PATH}"
+
+readonly config="${XDG_CONFIG_HOME}/tmux/tmux.conf"
+if [ ! -e "${config}" ]; then
+    echo 'config file not found!' >&2
+    exit 1
+fi
+
+tmux -f "${config}" new
