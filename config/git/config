@@ -29,5 +29,5 @@
 	list-branches = branch --format='%(HEAD)%(align:2)%(upstream:trackshort)%(end) %(refname:short)'
 [ghq]
 	root = ~/src
-[ghq "https://ghe.misosiru.io/"]
-	vcs = git
+[include]
+	path = enterprise.conf
