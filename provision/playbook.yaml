@@ -81,6 +81,7 @@
         com.apple.trackpad.forceClick:        {val: true, type: bool}
         KeyRepeat:                            {val: 2, type: int}
         InitialKeyRepeat:                     {val: 15, type: int}
+        AppleKeyboardUIMode:                  {val: 2, type: int}
     - name: install brews
       homebrew:
         name:
