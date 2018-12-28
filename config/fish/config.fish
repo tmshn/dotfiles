@@ -9,4 +9,5 @@ end
 pushd (dirname (status -f))
     source tools.fish
     source prompt.fish
+    source secret.fish
 popd
