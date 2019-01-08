@@ -7,17 +7,18 @@
       homebrew_cask:
         name: "{{ item }}"
       with_items:
-        - google-chrome
-        - google-japanese-ime
         - docker
-        - iterm2
-        - visual-studio-code
-        - slack
-        - karabiner-elements
-        - google-cloud-sdk
         - gitup
+        - google-chrome
+        - google-cloud-sdk
+        - google-japanese-ime
+        - imageoptim
+        - iterm2
         - java
+        - karabiner-elements
         - marp
+        - slack
+        - visual-studio-code
     # This runs every time, so comment out
     # - name: pin icons to Dock
     #   osx_defaults:
@@ -85,6 +86,7 @@
         KeyRepeat:                            {val: 2, type: int}
         InitialKeyRepeat:                     {val: 15, type: int}
         AppleKeyboardUIMode:                  {val: 2, type: int}
+        AppleShowAllExtensions:               {val: 1, type: int}
     - name: install brews
       homebrew:
         name:
