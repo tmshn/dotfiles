@@ -133,6 +133,7 @@
         dest: "{{ item.value }}"
       with_dict:
         riywo/anyenv: ~/.anyenv
+        znz/anyenv-update: ~/.anyenv/plugins/anyenv-update
         tmux-plugins/tpm: ~/.tmux/plugins/tpm
         # tmshn/dotfiles: ~/src/github.com/tmshn/dotfiles # GHQ-style
     - name: make fish shell valid
