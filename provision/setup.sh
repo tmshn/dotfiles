@@ -9,9 +9,16 @@ if ! type ansible > /dev/null; then
     brew install ansible
 fi
 
-if [ "${1}" = '-n' ]; then
-    opt='--check'
-fi
+opt=''
+while [ $# -gt 0 ]; do
+    case "${1}" in
+        --dryrun ) opt=' --check';;
+        --only   ) shift && opt=" --tags ${1}";;
+        --except ) shift && opt=" --skip-tags ${1}";;
+        *        ) echo "Unknown option '${1}'" >&2; exit 1;;
+    esac
+    shift
+done
 
 pushd $(dirname $0)
     ansible-playbook -v --diff --ask-become-pass -i localhost, playbook.yaml ${opt}
