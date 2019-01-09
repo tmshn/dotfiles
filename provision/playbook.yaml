@@ -18,6 +18,7 @@
         - karabiner-elements
         - marp
         - slack
+        - station
         - visual-studio-code
     # This runs every time, so comment out
     # - name: pin icons to Dock
