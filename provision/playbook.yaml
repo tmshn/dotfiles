@@ -28,7 +28,7 @@
     #     type: array
     #     value:
     #       - "{{ dock_tmpl | format('Google Chrome') }}"
-    #       - "{{ dock_tmpl | format('Slack') }}"
+    #       - "{{ dock_tmpl | format('Station') }}"
     #       - "{{ dock_tmpl | format('Visual Studio Code') }}"
     #       - "{{ dock_tmpl | format('iTerm') }}"
     #   notify: restart Dock
@@ -92,6 +92,7 @@
       homebrew:
         name:
           - awscli
+          - bash-git-prompt
           - bat
           - container-diff
           - coreutils
