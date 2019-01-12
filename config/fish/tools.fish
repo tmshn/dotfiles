@@ -3,7 +3,7 @@ set -x PATH "$HOME/bin" $PATH
 # ==========================================================
 # Aliases/tools
 # ----------------------------------------------------------
-alias ssh 'set -l SHELL /bin/sh; and /usr/bin/ssh'
+alias ssh 'set -l SHELL /bin/sh; command ssh'
 
 set -x EDITOR micro
 
