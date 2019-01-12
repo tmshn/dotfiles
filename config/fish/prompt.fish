@@ -39,5 +39,5 @@ function fish_right_prompt
         end
     end
 
-    printf '%s status: %d (took %s)%s' (set_color bcc) $last_status $dur (set_color normal)
+    printf '%sexit %d after %s%s' (set_color bcc) $last_status $dur (set_color normal)
 end
