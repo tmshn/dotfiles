@@ -134,10 +134,14 @@
         repo: "https://github.com/{{ item.key }}"
         dest: "{{ item.value }}"
       with_dict:
-        riywo/anyenv: ~/.anyenv
+        anyenv/anyenv: ~/.anyenv
         znz/anyenv-update: ~/.anyenv/plugins/anyenv-update
         tmux-plugins/tpm: ~/.tmux/plugins/tpm
         # tmshn/dotfiles: ~/src/github.com/tmshn/dotfiles # GHQ-style
+    - name: initialize anyenv
+      command: ~/.anyenv/bin/anyenv install --force-init
+      args:
+        creates: ~/src/github.com/tmshn/dotfiles/config/anyenv/anyenv-install/
     - name: make fish shell valid
       lineinfile:
         dest: /etc/shells
