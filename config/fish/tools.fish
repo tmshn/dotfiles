@@ -5,7 +5,7 @@ set -x PATH "$HOME/bin" $PATH
 # ----------------------------------------------------------
 alias ssh 'set -l SHELL /bin/sh; command ssh'
 
-set -x EDITOR micro
+set -x EDITOR kak
 
 set -x FZF_DEFAULT_OPTS '--border --cycle --height 30% --layout reverse --exit-0 --select-1'
 

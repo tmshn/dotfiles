@@ -112,6 +112,7 @@
           - hub
           - jid
           - jq
+          - kakoune
           - kubernetes-helm
           - micro
           - openssl
