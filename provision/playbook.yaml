@@ -97,6 +97,7 @@
           - container-diff
           - coreutils
           - diff-so-fancy
+          - docker-completion
           - exa
           - findutils
           - fish
@@ -118,6 +119,7 @@
           - openssl
           - pipenv
           - readline
+          - redis
           - rustup-init
           - terraform
           - tmux
