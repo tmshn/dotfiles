@@ -12,9 +12,9 @@ fi
 opt=''
 while [ $# -gt 0 ]; do
     case "${1}" in
-        --dryrun ) opt=' --check';;
-        --only   ) shift && opt=" --tags ${1}";;
-        --except ) shift && opt=" --skip-tags ${1}";;
+        --dryrun ) opt="${opt} --check";;
+        --only   ) shift && opt="${opt} --tags ${1}";;
+        --except ) shift && opt="${opt} --skip-tags ${1}";;
         *        ) echo "Unknown option '${1}'" >&2; exit 1;;
     esac
     shift
