@@ -42,6 +42,7 @@
         minimize-to-application:  {val: true, type: bool}
         orientation:              {val: left, type: string}
         tilesize:                 {val: 55, type: float}
+        mru-spaces:               {val: false, type: bool}
       notify: restart Dock
     - name: Finder settings
       osx_defaults:
