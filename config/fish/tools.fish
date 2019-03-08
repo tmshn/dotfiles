@@ -1,4 +1,20 @@
-set -x PATH "$HOME/bin" $PATH
+function addpath
+    set -l uniq
+    for arg in $argv
+        if [ ! -d "$arg" ]
+            echo "'$arg' is not a valid directory; ignored"
+            continue
+        end
+        set -l new_item (realpath "$arg")
+        set -l old_index (contains --index "$new_item" $PATH)
+        if [ -n "$old_index" ]
+            set -e PATH[$old_index]
+        end
+        set -gx PATH "$new_item" $PATH
+    end
+end
+
+addpath "$HOME/bin"
 
 # ==========================================================
 # Aliases/tools
@@ -50,7 +66,7 @@ end
 set -x GOPATH $HOME
 
 # Anyenv
-set -x PATH "$HOME/.anyenv/bin" $PATH
+addpath "$HOME/.anyenv/bin"
 status --is-interactive; and source (anyenv init -|psub)
 
 # Pipenv
@@ -60,10 +76,10 @@ set -x PIPENV_VENV_IN_PROJECT true
 # Brewed tools
 # ----------------------------------------------------------
 # Openssl
-set -x PATH "/usr/local/opt/openssl/bin" $PATH
+addpath "/usr/local/opt/openssl/bin"
 
 # GNU compaliants
 for t in coreutils findutils gnu-sed gnu-tar gnu-time grep
-    set -x PATH "/usr/local/opt/$t/libexec/gnubin" $PATH
+    addpath "/usr/local/opt/$t/libexec/gnubin"
     set -x MANPATH "/usr/local/opt/$t/libexec/gnuman" $MANPATH
 end
