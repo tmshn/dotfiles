@@ -3,6 +3,11 @@
 status --is-interactive; or exit 0
 
 function fish_prompt
+    if [ "$PROMPT" = simple ]
+        printf '$ '
+        return
+    end
+
     if [ $status -eq 0 ]
         set face "( '_')"
         set colr 'green'
@@ -22,6 +27,10 @@ end
 
 function fish_right_prompt
     set last_status $status
+
+    if [ "$PROMPT" = simple ]
+        return
+    end
 
     if [ -n $CMD_DURATION ]
         if [ $CMD_DURATION -lt 1000 ]
