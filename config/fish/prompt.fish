@@ -3,12 +3,14 @@
 status --is-interactive; or exit 0
 
 function fish_prompt
+    set last_status $status
+
     if [ "$PROMPT" = simple ]
         printf '$ '
         return
     end
 
-    if [ $status -eq 0 ]
+    if [ $last_status -eq 0 ]
         set face "( '_')"
         set colr 'green'
     else
