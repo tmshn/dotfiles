@@ -3,10 +3,16 @@
   vars:
     dock_tmpl: <dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/%s.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>
   tasks:
+    - name: brew taps
+      homebrew_tap:
+        name: "{{ item }}"
+      with_items:
+        - AdoptOpenJDK/openjdk
     - name: install casks
       homebrew_cask:
         name: "{{ item }}"
       with_items:
+        - adoptopenjdk8
         - docker
         - gitup
         - google-chrome
