@@ -23,7 +23,7 @@
 	diff = diff-so-fancy | less --tabs=4 -RFXmi
 [alias]
 	graph = foresta --style 10 -n 10
-    update-commit = ! git commit --amend --no-edit --date="$(date '+%Y-%m-%dT%T%z')"
+	update-commit = ! git commit --amend --no-edit --date="$(date '+%Y-%m-%dT%T%z')"
 	temp = commit -anm 'wip [skip ci]'
 	summary = diff --compact-summary remotes/origin/HEAD
 	list-branches = branch --format='%(HEAD)%(align:2)%(upstream:trackshort)%(end) %(refname:short)'
@@ -31,3 +31,5 @@
 	root = ~/src
 [include]
 	path = enterprise.conf
+[credential]
+	helper = osxkeychain
