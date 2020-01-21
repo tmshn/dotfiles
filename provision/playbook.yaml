@@ -8,6 +8,9 @@
         name: "{{ item }}"
       with_items:
         - AdoptOpenJDK/openjdk
+        - martido/homebrew-graph
+      tags:
+        - brew-cask
     - name: install casks
       homebrew_cask:
         name: "{{ item }}"
@@ -15,7 +18,6 @@
         - adoptopenjdk8
         - docker
         - gitup
-        - gnupg
         - google-chrome
         - google-cloud-sdk
         - google-japanese-ime
@@ -25,8 +27,9 @@
         - karabiner-elements
         - marp
         - slack
-        - station
         - visual-studio-code
+      tags:
+        - brew-cask
     # This runs every time, so comment out
     # - name: pin icons to Dock
     #   osx_defaults:
@@ -35,7 +38,7 @@
     #     type: array
     #     value:
     #       - "{{ dock_tmpl | format('Google Chrome') }}"
-    #       - "{{ dock_tmpl | format('Station') }}"
+    #       - "{{ dock_tmpl | format('Slack') }}"
     #       - "{{ dock_tmpl | format('Visual Studio Code') }}"
     #       - "{{ dock_tmpl | format('iTerm') }}"
     #   notify: restart Dock
@@ -51,6 +54,8 @@
         tilesize:                 {val: 55, type: float}
         mru-spaces:               {val: false, type: bool}
       notify: restart Dock
+      tags:
+        - os-dock
     - name: Finder settings
       osx_defaults:
         domain: com.apple.finder
@@ -60,6 +65,8 @@
       with_dict:
         FXPreferredViewStyle: {val: clmv, type: string} # Make column view as default
       notify: restart Finder
+      tags:
+        - os-finder
     - name: Menu bar clock settings
       osx_defaults:
         domain: com.apple.menuextra.clock
@@ -71,6 +78,8 @@
         FlashDateSeparators:  {val: false, type: bool}
         IsAnalog:             {val: false, type: bool}
       notify: restart menu bar
+      tags:
+        - os-clock
     - name: Menu bar battery settings
       osx_defaults:
         domain: com.apple.menuextra.battery
@@ -80,6 +89,8 @@
       with_dict:
         ShowPercent: {val: 'YES', type: string}
       notify: restart menu bar
+      tags:
+        - os-menubar
     - name: Global system settings
       osx_defaults:
         key: "{{ item.key }}"
@@ -96,6 +107,8 @@
         InitialKeyRepeat:                     {val: 15, type: int}
         AppleKeyboardUIMode:                  {val: 2, type: int}
         AppleShowAllExtensions:               {val: 1, type: int}
+      tags:
+        - os-global
     - name: install brews
       homebrew:
         name:
@@ -115,23 +128,34 @@
           - gnu-sed
           - gnu-tar
           - gnu-time
+          - gnupg
           - gradle
+          - graphviz
           - grep
           - gzip
+          - helm
+          - helm
+          - hexyl
           - hub
           - jid
           - jq
-          - kakoune
-          - kubernetes-helm
+          - jsonnet
+          - kubernetes-cli
           - micro
+          - minikube
           - openssl
           - pipenv
           - readline
           - redis
+          - ripgrep
           - rustup-init
+          - shellcheck
           - terraform
           - tmux
           - vegeta
+          - xz
+      tags:
+        - brew
     - name: prepare dirs under home
       file:
         path: "~/{{ item }}"
@@ -139,6 +163,8 @@
       with_items:
         - src
         - bin
+      tags:
+        - git-based
     - name: git-based installations
       git:
         repo: "https://github.com/{{ item.key }}"
@@ -147,21 +173,30 @@
         anyenv/anyenv: ~/.anyenv
         znz/anyenv-update: ~/.anyenv/plugins/anyenv-update
         tmux-plugins/tpm: ~/.tmux/plugins/tpm
+        grafana/grafonnet-lib: ~/src/github.com/grafana/grafonnet-lib
         # tmshn/dotfiles: ~/src/github.com/tmshn/dotfiles # GHQ-style
+      tags:
+        - git-based
     - name: initialize anyenv
       command: ~/.anyenv/bin/anyenv install --force-init
       args:
         creates: ~/src/github.com/tmshn/dotfiles/config/anyenv/anyenv-install/
+      tags:
+        - git-based
     - name: make fish shell valid
       lineinfile:
         dest: /etc/shells
         line: /usr/local/bin/fish
       become: true
+      tags:
+        - shell
     - name: change login shell to fish
       user:
         name: tmshn
         shell: /usr/local/bin/fish
       become: true
+      tags:
+        - shell
   handlers:
     - name: restart Dock
       command: killall Dock
