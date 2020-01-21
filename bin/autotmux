@@ -15,10 +15,6 @@ if tmux has-session 2> /dev/null; then
     exit
 fi
 
-readonly dotfiles="${HOME}/src/github.com/tmshn/dotfiles"
-export XDG_CONFIG_HOME="${dotfiles}/config"
-export PATH="${dotfiles}/bin:${PATH}"
-
 readonly config="${XDG_CONFIG_HOME}/tmux/tmux.conf"
 if [ ! -e "${config}" ]; then
     echo 'config file not found!' >&2
