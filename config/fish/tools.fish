@@ -26,7 +26,7 @@ alias scp 'set -l SHELL /bin/sh; command scp'
 
 alias dif 'git diff --no-index --color'
 
-set -x EDITOR vi
+set -x CLOUDSDK_PYTHON python3
 
 set -x FZF_DEFAULT_OPTS '--border --cycle --height 30% --layout reverse --exit-0 --select-1'
 
