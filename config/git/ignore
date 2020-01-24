@@ -4,6 +4,7 @@
 .python-version
 note.md
 gitignore/*
-.vscode
+.vscode/
+.venv/
 .node-version
 vendor/
