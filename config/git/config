@@ -32,7 +32,7 @@
 	up = !gitup
 [ghq]
 	root = ~/src
-[include]
+[includeIf "gitdir:~/src/ghe.misosiru.io/"]
 	path = enterprise.conf
 [credential]
 	helper = osxkeychain

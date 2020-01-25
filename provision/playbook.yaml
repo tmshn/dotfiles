@@ -137,6 +137,7 @@
           - helm
           - hexyl
           - hub
+          - hugo
           - jid
           - jq
           - jsonnet
