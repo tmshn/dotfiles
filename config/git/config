@@ -32,8 +32,8 @@
 	up = !gitup
 [ghq]
 	root = ~/src
-[include]
-	path = enterprise.conf
+[includeIf "gitdir:~/src/org1/"]
+	path = org1.conf
 [credential]
 	helper = osxkeychain
 [branch]
