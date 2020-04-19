@@ -4,3 +4,5 @@ config/git/enterprise.conf
 config/anyenv/anyenv-install
 
 provision/*.retry
+
+config/karabiner/automatic_backups
