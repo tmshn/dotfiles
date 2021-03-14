@@ -34,7 +34,7 @@
 [ghq]
 	root = ~/src
 [includeIf "gitdir:~/src/mycompany/"]
-	path = mycompany.conf
+	path = mycompany2.conf
 [credential]
 	helper = osxkeychain
 [branch]
