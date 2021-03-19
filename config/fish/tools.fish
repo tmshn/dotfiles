@@ -97,17 +97,17 @@ set -x GOPATH $HOME
 # ref:
 # - https://github.com/syndbg/goenv/pull/70
 # - https://github.com/syndbg/goenv/issues/72
-# set -x GOENV_DISABLE_GOPATH 1
-# set -x GOENV_DISABLE_GOROOT 1
+set -x GOENV_DISABLE_GOPATH 1
+set -x GOENV_DISABLE_GOROOT 1
 
 # Anyenv
 addpath "$HOME/.anyenv/bin"
-status --is-interactive; and source (anyenv init -|psub)
+# status --is-interactive; and source (anyenv init -|psub)
 
-# Pipenv
+# Python
+set -x PYENV_ROOT "$HOME/.anyenv/envs/pyenv"
+addpath "$PYENV_ROOT/shims"
 set -x PIPENV_VENV_IN_PROJECT true
-
-# Python Poetry
 addpath "$HOME/.poetry/bin"
 
 # Rust
