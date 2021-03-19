@@ -1,27 +1,43 @@
 [user]
 	name = Shinichi TAMURA (@tmshn)
 	email = hello@tmshn.dev
+[core]
+	pager = delta
+[delta]
+	syntax-theme = 1337
+	line-numbers = true
+	word-diff-regex = [\\p{Alphabetic}\\p{Mark}\\d\\p{Join_Control}]+
+	minus-style = "syntax #432D30"
+	zero-style = "syntax #292729"
+	plus-style = "syntax #2E3F35"
+	minus-emph-style = "normal #BF1900"
+	plus-emph-style = "normal #006B11"
+	file-style = "normal"
+	file-decoration-style = "117 box"
+	hunk-header-style = "#C595CF"
+	hunk-header-decoration-style = ""
+	commit-decoration-style = "#F7E354 normal ol"
+	line-numbers-left-format = " {nm:>0} "
+	line-numbers-right-format = " {np:>0}  "
+	line-numbers-minus-style = "#E25C4A"
+	line-numbers-plus-style = "#57AA65"
 [color]
 	ui = true
-[color "diff-highlight"]
-	oldNormal = red
-	oldHighlight = red bold reverse
-	newNormal = green
-	newHighlight = green bold reverse
 [diff]
 	compactionHeuristic = true
+	colorMoved = dimmed_zebra
+	colorMovedWs = ignore-space-change
 [color "diff"]
-	meta = magenta
-	frag = magenta bold
-	commit = magenta bold
-	old = red
-	new = green
-	whitespace = red reverse
-[diff-so-fancy]
-	markEmptyLines = false
-	stripLeadingSymbols = false
-[pager]
-	diff = diff-so-fancy | less --tabs=4 -RFXmi
+	oldMoved = "normal #412D30 ul"
+	oldMovedAlternative = "normal #412D30"
+	newMoved = "normal #2E3D35 ul"
+	newMovedAlternative = "normal #2E3D35"
+	oldMovedDimmed = "normal #222020"
+	oldMovedAlternativeDimmed = "normal #222020"
+	newMovedDimmed = "normal #222020"
+	newMovedAlternativeDimmed = "normal #222020"
+[interactive]
+	diffFilter = delta --color-only
 [alias]
 	graph = foresta --style 10 -n 10
 	align-date = rebase --ignore-date
