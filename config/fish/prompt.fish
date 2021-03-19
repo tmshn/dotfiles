@@ -40,11 +40,11 @@ function fish_right_prompt
         else if [ $CMD_DURATION -lt 60000 ]
             set dur (printf '%s sec' (math -s2 $CMD_DURATION / 1000))
         else if [ $CMD_DURATION -lt 3600000 ]
-            set -l min (math $CMD_DURATION / 60000)
+            set -l min (math -s0 $CMD_DURATION / 60000)
             set -l sec (math $CMD_DURATION / 1000 '%' 60)
             set dur (printf '%s min %s sec' $min $sec)
         else
-            set -l hour (math $CMD_DURATION / 3600000)
+            set -l hour (math -s0 $CMD_DURATION / 3600000)
             set -l min (math $CMD_DURATION / 60000 '%' 60)
             set dur (printf '%s hour %s min' $hour $min)
         end

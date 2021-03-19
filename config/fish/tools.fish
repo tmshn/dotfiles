@@ -24,14 +24,14 @@ addpath "$HOME/bin"
 alias ssh 'set -l SHELL /bin/sh; command ssh'
 alias scp 'set -l SHELL /bin/sh; command scp'
 
-alias dif 'git diff --no-index --color'
+set -x LESS '--tabs=4 --RAW-CONTROL-CHARS --ignore-case --no-init --quit-if-one-screen --quit-on-intr --LONG-PROMPT --hilite-search'
 
 set -x CLOUDSDK_PYTHON python3
 
-set -x FZF_DEFAULT_OPTS '--border --cycle --height 30% --layout reverse --exit-0 --select-1'
+set -x FZF_DEFAULT_OPTS '--border --cycle --height 40% --layout reverse --exit-0 --select-1 --marker="✓ "'
 
-# alias cat bat
 alias ll 'exa --git --long --group --classify --header --tree --level=1 --created --modified --accessed --time-style=iso'
+alias tree 'exa --tree'
 
 function __label_candidate
     sort -u | sed -E "s/\$/\x00$argv/"
