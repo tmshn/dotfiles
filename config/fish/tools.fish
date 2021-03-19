@@ -110,11 +110,17 @@ set -x PIPENV_VENV_IN_PROJECT true
 # Python Poetry
 addpath "$HOME/.poetry/bin"
 
+# Rust
+addpath "$HOME/.cargo/bin"
+
 # Bundle
 set -x BUNDLE_PATH "vendor/bundle"
 
+# Jsonnet
 set -x JSONNET_PATH "$HOME/src/github.com/grafana/grafonnet-lib/grafonnet/"
 
+# krew (kubectl plugin manager)
+addpath "$HOME/.krew/bin"
 # ==========================================================
 # Brewed tools
 # ----------------------------------------------------------
