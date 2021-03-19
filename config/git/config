@@ -38,13 +38,12 @@
 	newMovedAlternativeDimmed = "normal #222020"
 [interactive]
 	diffFilter = delta --color-only
+[merge]
+	conflictstyle = diff3
 [alias]
 	graph = foresta --style 10 -n 10
 	align-date = rebase --ignore-date
-	fix-author = commit --amend --no-edit --reset-author
-	temp = commit -anm 'wip [skip ci]'
-	summary = diff --compact-summary remotes/origin/HEAD
-	list-branches = branch --format='%(HEAD)%(align:2)%(upstream:trackshort)%(end) %(refname:short)'
+	recommit = commit --amend --no-edit --reset-author
 	push-f = push --force-with-lease
 	up = !gitup
 [ghq]
@@ -55,3 +54,5 @@
 	helper = osxkeychain
 [branch]
 	autoSetupMerge = true
+[hub]
+	protocol = https

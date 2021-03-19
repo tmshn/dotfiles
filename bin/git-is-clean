@@ -3,7 +3,7 @@
 # A script to determine if the current git repository is clean and safe to delete
 
 check() {
-    local target=$(cat)
+    readonly target=$(cat)
     if [ -z "$target" ]; then
         printf '[ \033[32mOK\033[0m ] ' >&2
         echo "${@}" >&2
@@ -15,9 +15,11 @@ check() {
     fi
 }
 
+
+readonly _fmt='%(HEAD)%(align:2)%(upstream:trackshort)%(end) %(refname:short)'
 errors=0
 git status --porcelain                              | check uncommitted files   || errors=$(( $errors + 1 ))
-git list-branches | grep -E '^ <?>|^. '             | check unpushed commits    || errors=$(( $errors + 1 ))
+git branch --format "$_fmt" | grep -E '^.(<?>| )'   | check unpushed commits    || errors=$(( $errors + 1 ))
 git ls-files --other --directory | grep -v DS_Store | check ignored files       || errors=$(( $errors + 1 ))
 git stash list                                      | check stashes             || errors=$(( $errors + 1 ))
 
