@@ -1,3 +1,0 @@
-#!/bin/sh
-
-(git config --get remote.origin.url || git rev-parse --show-toplevel) | sed -E 's/\.git$//' | grep -oE '[^/]+/[^/]+$'

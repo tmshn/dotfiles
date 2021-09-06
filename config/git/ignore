@@ -1,10 +1,5 @@
 *~
 .DS_Store
 .idea/*
-.python-version
-note.md
 gitignore/*
 .vscode/
-.venv/
-.node-version
-vendor/
