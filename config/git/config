@@ -1,5 +1,5 @@
 [user]
-	name = Shinichi TAMURA (@tmshn)
+	name = Shinichi TAMURA (tmshn)
 	email = hello@tmshn.dev
 [core]
 	pager = delta
@@ -7,8 +7,8 @@
 	syntax-theme = 1337
 	line-numbers = true
 	word-diff-regex = [\\p{Alphabetic}\\p{Mark}\\d\\p{Join_Control}]+
-	minus-style = "syntax #432D30"
-	zero-style = "syntax #292729"
+	minus-style = "syntax #513430"
+	zero-style = "syntax #272729"
 	plus-style = "syntax #2E3F35"
 	minus-emph-style = "normal #BF1900"
 	plus-emph-style = "normal #006B11"
@@ -25,7 +25,7 @@
 	ui = true
 [diff]
 	compactionHeuristic = true
-	colorMoved = dimmed_zebra
+	colorMoved = no
 	colorMovedWs = ignore-space-change
 [color "diff"]
 	oldMoved = "normal #412D30 ul"

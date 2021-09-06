@@ -3,9 +3,10 @@
 set -o errexit
 set -o nounset
 
+default="$(git remote show origin | awk '/HEAD branch/ {print $NF}')"
 prev="$(git symbolic-ref --short HEAD)"
-if [ "${prev}" != 'master' ]; then
-    git checkout master
+if [ "${prev}" != "${default}" ]; then
+    git checkout "${default}"
 fi
 
 git pull -p
