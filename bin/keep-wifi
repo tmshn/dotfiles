@@ -1,0 +1,24 @@
+#!/bin/sh
+
+set -o nounset
+set -o errexit
+
+trap 'printf "\n%s Shut down. Bye!\n" "$(date "+%Y-%m-%d %H:%M:%S")" && exit 0' INT
+
+printf '%s Start Wi-Fi keeper!\n' "$(date '+%Y-%m-%d %H:%M:%S')"
+networksetup -setairportpower en0 on
+loss=0
+while true; do
+    while [ $loss -lt 100 ]; do
+        printf '\r%s Keep pinging...' "$(date '+%Y-%m-%d %H:%M:%S')"
+        sleep 1
+        loss="$(ping -q -n -c4 192.168.1.1 | grep -oE '\S+ packet loss' | sed -E 's/([0-9]+).*%.*$/\1/')"
+    done
+    printf '\n%s Re-enabling Wi-Fi...' "$(date '+%Y-%m-%d %H:%M:%S')"
+    networksetup -setairportpower en0 off
+    sleep 2
+    networksetup -setairportpower en0 on
+    sleep 2
+    loss=0
+    printf '\r%s Re-enabled Wi-Fi    \n' "$(date '+%Y-%m-%d %H:%M:%S')"
+done
